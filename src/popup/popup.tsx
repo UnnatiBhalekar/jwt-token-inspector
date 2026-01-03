@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { decodeJwt, getExpiryStatus, normalizeToken } from "./jwtUtils";
+import { CLAIM_EXPLANATIONS } from "./claimInfo";
 import "./Popup.css";
 
 export default function Popup() {
@@ -13,7 +14,7 @@ export default function Popup() {
     function handleDecode() {
         try {
             setError(null);
-            
+
             const cleanedToken = normalizeToken(token);
             const decoded = decodeJwt(cleanedToken);
 
@@ -49,10 +50,18 @@ export default function Popup() {
                 </>
             )}
 
-            {payload && (
+            {payload && Object.keys(payload).some(k => CLAIM_EXPLANATIONS[k]) && (
                 <>
-                    <h2>Payload</h2>
-                    <pre>{JSON.stringify(payload, null, 2)}</pre>
+                    <h3>Claim Explanations</h3>
+                    <ul className="claims">
+                        {Object.keys(payload).map((key) =>
+                            CLAIM_EXPLANATIONS[key] ? (
+                                <li key={key}>
+                                    <strong>{key}</strong>: {CLAIM_EXPLANATIONS[key]}
+                                </li>
+                            ) : null
+                        )}
+                    </ul>
                 </>
             )}
             {expiryInfo && (
