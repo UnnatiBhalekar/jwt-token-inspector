@@ -21,3 +21,44 @@ export function decodeJwt(token: string) {
 
   return { header, payload };
 }
+
+export function getExpiryStatus(payload: any) {
+  if (!payload.exp) return null;
+
+  const now = Math.floor(Date.now() / 1000);
+  const diffSeconds = payload.exp - now;
+
+  const absSeconds = Math.abs(diffSeconds);
+  const minutes = Math.floor(absSeconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+
+  let timeLabel = "";
+
+  if (minutes < 60) {
+    timeLabel = `${minutes} min`;
+  } else if (hours < 24) {
+    timeLabel = `${hours} hr ${remainingMinutes} min`;
+  } else {
+    timeLabel = `${hours} hr`;
+  }
+
+  if (diffSeconds <= 0) {
+    return {
+      status: "expired",
+      timeLabel
+    };
+  }
+
+  if (diffSeconds <= 300) {
+    return {
+      status: "expiring-soon",
+      timeLabel
+    };
+  }
+
+  return {
+    status: "valid",
+    timeLabel
+  };
+}

@@ -43,3 +43,29 @@ h2 {
   font-size: 12px;
   margin-top: 8px;
 }
+.expiry {
+  margin-top: 10px;
+  padding: 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.expiry.valid {
+  background: #e6fffa;
+  color: #065f46;
+}
+
+.expiry.expiring-soon {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.expiry.expired {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.expiry-time {
+  margin-top: 4px;
+  font-size: 11px;
+}
