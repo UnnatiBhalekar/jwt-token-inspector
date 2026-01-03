@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { decodeJwt, getExpiryStatus, normalizeToken } from "./jwtUtils";
+import { getSecurityWarnings, SecurityWarning } from "./securityWarnings";
 import { CLAIM_EXPLANATIONS } from "./claimInfo";
 import "./Popup.css";
+
 
 type ExpiryInfo = {
     status: "expired" | "expiring-soon" | "valid";
@@ -14,6 +16,8 @@ export default function Popup() {
     const [payload, setPayload] = useState<Record<string, unknown> | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [expiryInfo, setExpiryInfo] = useState<ExpiryInfo | null>(null);
+    const [warnings, setWarnings] = useState<SecurityWarning[]>([]);
+
 
     function handleDecode() {
         try {
@@ -25,10 +29,12 @@ export default function Popup() {
             setHeader(decoded.header);
             setPayload(decoded.payload);
             setExpiryInfo(getExpiryStatus(decoded.payload));
+            setWarnings(getSecurityWarnings(decoded.header, decoded.payload));
         } catch {
             setHeader(null);
             setPayload(null);
             setExpiryInfo(null);
+            setWarnings([]);
             setError("Invalid JWT. Please check the token format.");
         }
     }
@@ -118,7 +124,10 @@ export default function Popup() {
                                         <button
                                             className="icon-btn"
                                             title={`Copy ${key}`}
-                                            onClick={() => copyToClipboard(String(payload[key]))}
+                                            onClick={() =>
+                                                copyToClipboard(JSON.stringify(payload[key], null, 2))
+                                            }
+
                                         >
                                             {/* SVG icon */}
                                         </button>
@@ -130,6 +139,20 @@ export default function Popup() {
                                 </li>
                             ) : null
                         )}
+                    </ul>
+                </>
+            )}
+
+            {warnings.length > 0 && (
+                <>
+                    <h2>Security Warnings</h2>
+
+                    <ul className="warnings">
+                        {warnings.map((w, i) => (
+                            <li key={i} className={`warning ${w.level}`}>
+                                {w.message}
+                            </li>
+                        ))}
                     </ul>
                 </>
             )}

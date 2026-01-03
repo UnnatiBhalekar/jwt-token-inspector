@@ -178,3 +178,34 @@ pre {
   margin-top: 4px;
   font-size: 11px;
 }
+/* =========================
+   Security Warnings
+   ========================= */
+
+.warnings {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+
+.warning {
+  font-size: 12px;
+  padding: 6px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.warning.high {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.warning.medium {
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.warning.low {
+  background: #eff6ff;
+  color: #1e40af;
+}
