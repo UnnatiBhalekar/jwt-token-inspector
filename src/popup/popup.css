@@ -1,84 +1,180 @@
+/* =========================
+   Popup Container
+   ========================= */
 .popup-container {
   width: 360px;
-  padding: 16px;
-  font-family: system-ui, sans-serif;
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: hidden; /* No internal scrollbar */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* =========================
+   Title
+   ========================= */
 h1 {
   font-size: 16px;
-  margin-bottom: 8px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
 }
 
+/* =========================
+   JWT Input
+   ========================= */
 textarea {
   width: 100%;
-  height: 80px;
+  height: 72px;
   font-family: monospace;
   font-size: 12px;
   padding: 8px;
-  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
   resize: none;
+  box-sizing: border-box;
+  margin-bottom: 8px;
 }
 
-button {
+/* =========================
+   Decode Button (ONLY)
+   ========================= */
+.popup-container > button {
   width: 100%;
-  padding: 8px;
-  font-size: 13px;
+  padding: 6px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
   cursor: pointer;
 }
 
+.popup-container > button:hover {
+  background: #e5e7eb;
+}
+
+/* =========================
+   Section Headers
+   ========================= */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.section-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* =========================
+   Icon Buttons (Copy)
+   ========================= */
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: unset;
+}
+
+.icon-btn:hover {
+  color: #111827;
+}
+
+/* =========================
+   JSON Blocks
+   ========================= */
 pre {
-  background: #f5f5f5;
+  background: #f9fafb;
   padding: 8px;
+  border-radius: 6px;
   font-size: 12px;
+  margin: 0;
   overflow-x: auto;
 }
 
-h2 {
-  font-size: 14px;
-  margin-top: 12px;
+/* =========================
+   Error Message
+   ========================= */
+.error {
+  color: #b91c1c;
+  font-size: 12px;
+  margin-top: 6px;
 }
 
-.error {
-  color: #c00;
-  font-size: 12px;
-  margin-top: 8px;
+/* =========================
+   Claims Section (Clean)
+   ========================= */
+
+.claims {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
 }
-.expiry {
-  margin-top: 10px;
-  padding: 8px;
+
+.claim-item {
+  padding: 6px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.claim-item:last-child {
+  border-bottom: none;
+}
+
+/* Top row: key + copy icon */
+.claim-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Claim key */
+.claim-key {
+  font-family: monospace;
   font-size: 12px;
-  border-radius: 4px;
+}
+
+/* Claim description */
+.claim-desc {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #374151;
+  line-height: 1.35;
+}
+
+/* =========================
+   Expiry Status Banner
+   ========================= */
+.expiry {
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
 }
 
 .expiry.valid {
-  background: #e6fffa;
+  background: #ecfdf5;
   color: #065f46;
 }
 
 .expiry.expiring-soon {
-  background: #fff7ed;
-  color: #9a3412;
+  background: #fffbeb;
+  color: #92400e;
 }
 
 .expiry.expired {
-  background: #fee2e2;
+  background: #fef2f2;
   color: #991b1b;
 }
 
 .expiry-time {
   margin-top: 4px;
   font-size: 11px;
-}
-.claims {
-  margin-top: 8px;
-  padding-left: 16px;
-  font-size: 12px;
-}
-
-.claims li {
-  margin-bottom: 4px;
-}
-
-.claims strong {
-  font-family: monospace;
 }
