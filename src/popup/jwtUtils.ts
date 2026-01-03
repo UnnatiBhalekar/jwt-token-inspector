@@ -9,6 +9,13 @@ function base64UrlDecode(input: string): string {
   return atob(padded);
 }
 
+export function normalizeToken(input: string): string {
+  return input
+    .trim()
+    .replace(/^Bearer\s+/i, "")   // remove "Bearer "
+    .replace(/\s+/g, "");         // remove newlines/spaces
+}
+
 export function decodeJwt(token: string) {
   const parts = token.split(".");
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { decodeJwt, getExpiryStatus } from "./jwtUtils";
+import { decodeJwt, getExpiryStatus, normalizeToken } from "./jwtUtils";
 import "./Popup.css";
 
 export default function Popup() {
@@ -13,11 +13,14 @@ export default function Popup() {
     function handleDecode() {
         try {
             setError(null);
-            const decoded = decodeJwt(token.trim());
+            
+            const cleanedToken = normalizeToken(token);
+            const decoded = decodeJwt(cleanedToken);
+
             setHeader(decoded.header);
             setPayload(decoded.payload);
             setExpiryInfo(getExpiryStatus(decoded.payload));
-        } catch (err) {
+        } catch {
             setHeader(null);
             setPayload(null);
             setExpiryInfo(null);
